@@ -1,15 +1,29 @@
 from module import *
 
+
+
 virus = Virus(5, 5, 1)
-x = list()
-for i in range(5):
-    x.append(Node([1, 1], "S", 10, virus))
+node_s = list()
+node_i = list()
+for i in range(4):
+    node_s.append(Node([1, 1], "S", i, virus))
 
-x[0].state = "I"
-x[1].state = "R"
-x[2].state = "D"
+for i in node_s:
+    print(i.life)
 
-x[0], x[1] = x[1], x[0]
 
-for i in x:
-    print(i.state)
+node_i.append(node_s[0])
+node_s[0], node_s[-1] = node_s[-1], node_s[0]
+print("node_s")
+for i in node_s:
+    
+    print(i.life)
+del node_s[0::]
+print("node_s")
+for i in node_s:
+    
+    print(i.life)
+print("node_i")
+for i in node_i:
+    print(i.life)
+
