@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 
 # set default virus status
-tran_range, ttl = 25, 90
+tran_range, ttl = 24, 100
 virus = Virus(tran_range, ttl)
 
 # set node information
@@ -24,7 +24,7 @@ for node in range(1, node_amount):
     pos_x, pos_y = randint(0, area_w), randint(0, area_h)
     node_s.append(Node([pos_x, pos_y], "S", virus.ttl))
 pos_x, pos_y = randint(0, area_w), randint(0, area_h)
-node_i.append(Node([500, 500], "I", virus.ttl)) #infected No.0
+node_i.append(Node([400, 400], "I", virus.ttl)) #infected No.0
 
 
 turn = 0
