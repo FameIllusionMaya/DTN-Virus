@@ -84,18 +84,18 @@ print(s_i, i_r)
 print(s_i/turn_count, (i_r)/turn_count)
 
 
-plt.plot(g_time_list, g_healthy_list, label = "healthy")
-plt.plot(g_time_list, g_infect_list, label = "infected")
-plt.plot(g_time_list, g_recover_list, label = "recover")
-plt.xlabel('turn')
-# naming the y axis
-plt.ylabel('population')
-# giving a title to my graph
-plt.title('healthy/infected amount')
+# plt.plot(g_time_list, g_healthy_list, label = "healthy")
+# plt.plot(g_time_list, g_infect_list, label = "infected")
+# plt.plot(g_time_list, g_recover_list, label = "recover")
+# plt.xlabel('turn')
+# # naming the y axis
+# plt.ylabel('population')
+# # giving a title to my graph
+# plt.title('healthy/infected amount')
   
-# show a legend on the plot
-plt.legend()
+# # show a legend on the plot
+# plt.legend()
   
-# function to show the plot
-plt.show()
+# # function to show the plot
+# plt.show()
 
