@@ -5,9 +5,15 @@ from module import *
 from random import randint
 import xlwt
 from xlwt import Workbook
+import xlrd
 
-def test(node_amount, tran_range, ttl, test_round):
-
+def tran_rate(node_amount, tran_range, ttl, test_round):
+    wb = Workbook()
+  
+    # add_sheet is used to create sheet.
+    sheet1 = wb.add_sheet('Sheet 1')
+    sheet1.write(0, 0, "Time use(units)")
+    sheet1.write(0, 1, "Total infect")
    
     for test in range(test_round):
         virus = Virus(tran_range, ttl)
@@ -55,8 +61,43 @@ def test(node_amount, tran_range, ttl, test_round):
             if len(node_i) == 0 or len(node_s) == 0:
                 break
 
-    print(turn_count, total_infect)
+        sheet1.write(test+1, 0, turn_count)
+        sheet1.write(test+1, 1, total_infect)
 
-test(750, 24, 100, 1)
+    file_name = 'TranRate_' + str(node_amount) + '_' + str(tran_range) + '_' + str(ttl) + ".xls"
+    wb.save(file_name)
             
+def tran_rate_cal():
+    """use infomation from excel to calculate transmission rate of each parameter"""
+    avg_result = {
+        "default": [0, 0, 0],
+        "node_amount": [0, 0, 0],
+        "tran_range": [0, 0, 0],
+        "ttl": [0, 0, 0]
+    }
+
+    inventory_path = ["result/TranRate_500_24.0_100.xls", "result/TranRate_750_24.0_100.xls", "result/TranRate_500_36.0_100.xls",\
+     "result/TranRate_500_24.0_150.xls"]
+    dict_key = ["default", "node_amount", "tran_range", "ttl"]
+
+    for i in range(len(inventory_path)):
+        time_use = list()
+        total_infect = list()
+        loc = (inventory_path[i])
+        w = xlrd.open_workbook(loc)
+        sheet = w.sheet_by_index(0)
+        sheet.cell_value(0, 0)
+        for row in range(1, sheet.nrows):
+            time_use.append(int(sheet.cell_value(row, 0)))
+            total_infect.append(int(sheet.cell_value(row, 1)))
+
+        average_time_use = sum(time_use)/len(time_use)
+        average_total_infect = sum(total_infect)/len(total_infect)
+
+        avg_result[dict_key[i]][0] = average_total_infect
+        avg_result[dict_key[i]][1] = average_time_use
+        avg_result[dict_key[i]][2] = average_total_infect/average_time_use
+
+    return avg_result
+
 
