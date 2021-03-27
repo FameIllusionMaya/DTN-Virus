@@ -4,12 +4,14 @@
 from SI_standard import *
 from SIR_standard import *
 from TransmissionRate_compare import *
+from time_spend import *
 
 while True:
     print("----DTN virus simulator main page----")
     print("1 : show default SI graph")
     print("2 : show default SIR graph")
     print("3 : show transmission rate SIR model graph compare /node amount/transmission range/TTL")
+    print("4 : show maximum infect SIR model graph compare /node amount/transmission range/TTL")
     print("q : quit the program")
     choice = input("Please select method: ")
     if choice == "1":
@@ -42,16 +44,44 @@ while True:
         plt.ylabel('transmission rate')
         plt.title('transmission rate compare with SIR model')
         plt.show()
+        print(height)
     elif choice == "4":
         result = tran_rate_cal()
-
+        left = [1, 2, 3, 4]
+        height = [result["default"][3], result["node_amount"][3], result["tran_range"][3], result["ttl"][3]]
+        tick_label = ['Default', '1.5x_NodeAmount', '1.5x_TranRange', '1.5x_TTL']
+        plt.bar(left, height, tick_label = tick_label,
+                width = 0.5, color = ['red', 'orange', "blue", "purple"])
+        plt.xlabel('parameter')
+        plt.ylabel('population')
+        plt.title('Maximum Number of Infected Populations')
+        plt.show()
+        print(height)
+    elif choice == "5":
+        result = time_use_cal
+        left = [1, 2, 3, 4]
+        height = [result["default"] result["node_amount"], result["tran_range"], result["area"]]
+        tick_label = ['Default', '1.5x_NodeAmount', '1.5x_TranRange', '1.5x_area']
+        plt.bar(left, height, tick_label = tick_label,
+                width = 0.5, color = ['red', 'orange', "blue", "purple"])
+        plt.xlabel('parameter')
+        plt.ylabel('population')
+        plt.title('Average time spend to infecct all population')
+        plt.show()
+        print(height)
+    elif choice == "88":
+        #time_use(node_amount, tran_range, ttl, test_round)
+        node_amount = int(input("Input Node amount: "))
+        tran_range = float(input("Input transmission range: "))
+        ttl = int(input("Input TTL: "))
+        test_round = int(input("Input test round amount: "))
+        time_use(node_amount, tran_range, "area1500", test_round)
     elif choice == "99":
         node_amount = int(input("Input Node amount: "))
         tran_range = float(input("Input transmission range: "))
         ttl = int(input("Input TTL: "))
         test_round = int(input("Input test round amount: "))
         tran_rate(node_amount, tran_range, ttl, test_round)
-        pass
     elif str.lower(choice) == "q":
         break
     else:
