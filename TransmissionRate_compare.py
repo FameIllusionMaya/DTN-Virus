@@ -14,6 +14,7 @@ def tran_rate(node_amount, tran_range, ttl, test_round):
     sheet1 = wb.add_sheet('Sheet 1')
     sheet1.write(0, 0, "Time use(units)")
     sheet1.write(0, 1, "Total infect")
+    sheet1.write(0, 2, "highest infect")
    
     for test in range(test_round):
         virus = Virus(tran_range, ttl)
@@ -29,6 +30,7 @@ def tran_rate(node_amount, tran_range, ttl, test_round):
 
         turn_count = 0 #time use
         total_infect = 0
+        max_infect = 0
 
         while True:
             turn_count += 1
@@ -50,10 +52,11 @@ def tran_rate(node_amount, tran_range, ttl, test_round):
                 node_s[index].move()
                 node_s[index].infect(node_i, virus.tran_range)
                 if node_s[index].state == "I":
-                    total_infect += 1
                     node_i.append(node_s[index])
                     node_s[index], node_s[last_healthy_index] = node_s[last_healthy_index], node_s[index]
                     last_healthy_index -= 1
+                    total_infect += 1
+                    max_infect = max(max_infect, len(node_i))
             if last_healthy_index < -1:
                 del node_s[last_healthy_index + 1::]
 
@@ -63,6 +66,7 @@ def tran_rate(node_amount, tran_range, ttl, test_round):
 
         sheet1.write(test+1, 0, turn_count)
         sheet1.write(test+1, 1, total_infect)
+        sheet1.write(test+1, 2, max_infect)
 
     file_name = 'TranRate_' + str(node_amount) + '_' + str(tran_range) + '_' + str(ttl) + ".xls"
     wb.save(file_name)
@@ -70,10 +74,10 @@ def tran_rate(node_amount, tran_range, ttl, test_round):
 def tran_rate_cal():
     """use infomation from excel to calculate transmission rate of each parameter"""
     avg_result = {
-        "default": [0, 0, 0],
-        "node_amount": [0, 0, 0],
-        "tran_range": [0, 0, 0],
-        "ttl": [0, 0, 0]
+        "default": [0, 0, 0, 0],
+        "node_amount": [0, 0, 0, 0],
+        "tran_range": [0, 0, 0, 0],
+        "ttl": [0, 0, 0, 0]
     }
 
     inventory_path = ["result/TranRate_500_24.0_100.xls", "result/TranRate_750_24.0_100.xls", "result/TranRate_500_36.0_100.xls",\
@@ -83,6 +87,7 @@ def tran_rate_cal():
     for i in range(len(inventory_path)):
         time_use = list()
         total_infect = list()
+        max_infect = list()
         loc = (inventory_path[i])
         w = xlrd.open_workbook(loc)
         sheet = w.sheet_by_index(0)
@@ -90,13 +95,16 @@ def tran_rate_cal():
         for row in range(1, sheet.nrows):
             time_use.append(int(sheet.cell_value(row, 0)))
             total_infect.append(int(sheet.cell_value(row, 1)))
+            max_infect.append(int(sheet.cell_value(row, 2)))
 
         average_time_use = sum(time_use)/len(time_use)
         average_total_infect = sum(total_infect)/len(total_infect)
+        average_max_infect = sum(max_infect)/len(max_infect)
 
         avg_result[dict_key[i]][0] = average_total_infect
         avg_result[dict_key[i]][1] = average_time_use
         avg_result[dict_key[i]][2] = average_total_infect/average_time_use
+        avg_result[dict_key[i]][3] = average_max_infect
 
     return avg_result
 

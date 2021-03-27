@@ -43,7 +43,8 @@ while True:
         plt.title('transmission rate compare with SIR model')
         plt.show()
     elif choice == "4":
-        pass
+        result = tran_rate_cal()
+
     elif choice == "99":
         node_amount = int(input("Input Node amount: "))
         tran_range = float(input("Input transmission range: "))
