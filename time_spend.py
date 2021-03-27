@@ -19,7 +19,7 @@ def time_use(node_amount, tran_range, ttl, test_round):
         node_s, node_i  = list(), list() #SI = can infected/ infected
         # set default node status and position
         # position in range between 0 to area_w in x_axis and area_h in y_axis unit
-        area_w, area_h = 1500, 1500
+        area_w, area_h = 1000, 1000
         for node in range(1, node_amount):
             pos_x, pos_y = randint(0, area_w), randint(0, area_h)
             node_s.append(Node([pos_x, pos_y], "S", virus.ttl))
@@ -46,7 +46,7 @@ def time_use(node_amount, tran_range, ttl, test_round):
                 del node_s[last_healthy_index + 1::]
 
             print(turn_count, len(node_s))
-            if len(node_s) == 0:
+            if len(node_s) <= 0.01*node_amount:
                 break
 
         sheet1.write(test+1, 0, turn_count)
