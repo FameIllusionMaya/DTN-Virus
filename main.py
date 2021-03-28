@@ -12,6 +12,9 @@ while True:
     print("2 : show default SIR graph")
     print("3 : show transmission rate SIR model graph compare /node amount/transmission range/TTL")
     print("4 : show maximum infect SIR model graph compare /node amount/transmission range/TTL")
+    print("5 : show average time use to infect 99 percent graph compare /node amount/transmission range/area")
+    print("88 : simulate [5] data and save in excel file")
+    print("99 : simualte [3-4] date and save in excel file")
     print("q : quit the program")
     choice = input("Please select method: ")
     if choice == "1":

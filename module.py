@@ -15,13 +15,13 @@ class Node:
         self.state = state
         self.virus_ttl = virus_ttl
 
-    def move(self):
+    def move(self, area_w, area_h):
         """node randomly move"""
         move_x, move_y = randint(-10, 10), randint(-10, 10)
 
-        if self.position[0] + move_x < 0 or self.position[0] + move_x > 10000:
+        if self.position[0] + move_x < 0 or self.position[0] + move_x > area_w:
             move_x = -move_x
-        if self.position[1] + move_y < 0 or self.position[1] + move_y > 10000:
+        if self.position[1] + move_y < 0 or self.position[1] + move_y > area_h:
             move_y = -move_y
         self.position[0] += move_x
         self.position[1] += move_y

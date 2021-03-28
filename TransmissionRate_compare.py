@@ -37,7 +37,7 @@ def tran_rate(node_amount, tran_range, ttl, test_round):
             #state I can change state to R or D
             last_infect_index = -1
             for index in range(len(node_i) - 1, -1, -1):
-                node_i[index].move()
+                node_i[index].move(area_w, area_h)
                 node_i[index].recovery()
 
                 if node_i[index].state == "R":
@@ -49,7 +49,7 @@ def tran_rate(node_amount, tran_range, ttl, test_round):
 
             last_healthy_index = -1
             for index in range(len(node_s) - 1, -1, -1):
-                node_s[index].move()
+                node_s[index].move(area_w, area_h)
                 node_s[index].infect(node_i, virus.tran_range)
                 if node_s[index].state == "I":
                     node_i.append(node_s[index])
@@ -80,8 +80,8 @@ def tran_rate_cal():
         "ttl": [0, 0, 0, 0]
     }
 
-    inventory_path = ["result/TranRate_500_24.0_100.xls", "result/TranRate_750_24.0_100.xls", "result/TranRate_500_36.0_100.xls",\
-     "result/TranRate_500_24.0_150.xls"]
+    inventory_path = ["result/TranRate_default.xls", "result/TranRate_node.xls", "result/TranRate_tranrange.xls",\
+     "result/TranRate_ttl.xls"]
     dict_key = ["default", "node_amount", "tran_range", "ttl"]
 
     for i in range(len(inventory_path)):

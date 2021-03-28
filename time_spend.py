@@ -32,11 +32,11 @@ def time_use(node_amount, tran_range, ttl, test_round):
             #state I can change state to R or D
             last_infect_index = -1
             for index in range(len(node_i) - 1, -1, -1):
-                node_i[index].move()
+                node_i[index].move(area_w, area_h)
 
             last_healthy_index = -1
             for index in range(len(node_s) - 1, -1, -1):
-                node_s[index].move()
+                node_s[index].move(area_w, area_h)
                 node_s[index].infect(node_i, virus.tran_range)
                 if node_s[index].state == "I":
                     node_i.append(node_s[index])
@@ -51,7 +51,7 @@ def time_use(node_amount, tran_range, ttl, test_round):
 
         sheet1.write(test+1, 0, turn_count)
 
-    file_name = 'TimeUse' + str(node_amount) + '_' + str(tran_range) + '_' + "area" + ".xls"
+    file_name = 'TimeUse' + str(node_amount) + '_' + str(tran_range) + '_' + str(area_w) + ".xls"
     wb.save(file_name)
             
 def time_use_cal():
