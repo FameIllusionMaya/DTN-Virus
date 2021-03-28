@@ -58,14 +58,15 @@ while True:
         plt.show()
         print(height)
     elif choice == "5":
-        result = time_use_cal
+        result = time_use_cal()
         left = [1, 2, 3, 4]
-        height = [result["default"] result["node_amount"], result["tran_range"], result["area"]]
+        print(result)
+        height = [result["default"], result["node_amount"], result["tran_range"], result["area"]]
         tick_label = ['Default', '1.5x_NodeAmount', '1.5x_TranRange', '1.5x_area']
         plt.bar(left, height, tick_label = tick_label,
                 width = 0.5, color = ['red', 'orange', "blue", "purple"])
         plt.xlabel('parameter')
-        plt.ylabel('population')
+        plt.ylabel('time use(unit)')
         plt.title('Average time spend to infecct all population')
         plt.show()
         print(height)

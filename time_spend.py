@@ -51,7 +51,7 @@ def time_use(node_amount, tran_range, ttl, test_round):
 
         sheet1.write(test+1, 0, turn_count)
 
-    file_name = 'TimeUse' + str(node_amount) + '_' + str(tran_range) + '_' + str(ttl) + ".xls"
+    file_name = 'TimeUse' + str(node_amount) + '_' + str(tran_range) + '_' + "area" + ".xls"
     wb.save(file_name)
             
 def time_use_cal():
@@ -77,7 +77,7 @@ def time_use_cal():
             time_use.append(int(sheet.cell_value(row, 0)))
 
         average_time_use = sum(time_use)/len(time_use)
-        avg_result[dict_key[i]][0] = average_time_use
+        avg_result[dict_key[i]] = average_time_use
 
     return avg_result
 
